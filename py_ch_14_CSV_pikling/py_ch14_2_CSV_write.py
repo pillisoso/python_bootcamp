@@ -1,21 +1,47 @@
 
 # Courses: colt_py_bootcamps    315, 316
 
-# scream
+# --------------    Writing CSV    --------------
+# we can write using "list" or 'ditioneries'
+
+# Writing CSV Files Using "LISTS"
+	# We use writer(), which creates a writer object for writing to CSV 
+	# writerow() method on a 'writer' object to write a "ROW" to the CSV
+
+
+
+# Example 1: Demo of writing a CSV file
+from csv import writer
+
+with open("fighters_2.csv", "w") as file: 
+	csv_writer = writer(file)
+	csv_writer.writerow(["Character", "Move"]) 
+	csv_writer.writerow(["Ryu", "Hadouken"])
+	csv_writer.writerow(["Ben", "Kadichi"])
+
+
+
+
+# Example 2: Read from a file, change the data and store to another file
+# scream.py
 from csv import reader, writer
-# using nested with statements
-with open('fighters.csv') as file:
-	csv_reader = reader(file) #data never converted to list
-	with open('screaming_fighters.csv', "w") as file:
-		csv_writer = writer(file)
-		for fighter in csv_reader:
+# using     "NESTED WITH"     statements
+with open('fighters.csv') as input_file:
+	csv_reader = reader(input_file) 	# data never converted to "list"
+	with open('screaming_fighters.csv', "w") as output_file:
+		csv_writer = writer(output_file)
+		for fighter in csv_reader:		# can iterate only once
+			# notice  "list-comprehension is used inside FOR-loop 
+			# because we're dealing with list-of-lists"
 			csv_writer.writerow([s.upper() for s in fighter])
 
 
-# Other approach, with only 1 file open at a time
+
+# Examle 2 (Version 2): Other approach, with only 1 file open at a time
 with open('fighters.csv') as file:
 	csv_reader = reader(file)
 	# data converted to list and saved to variable
+	# notice "NESTED LIST COMPREHENSION"
 	fighters = [[s.upper() for s in row] for row in csv_reader]
 
 with open('screaming_fighters.csv', "w") as file:
@@ -26,6 +52,9 @@ with open('screaming_fighters.csv', "w") as file:
 
 
 
+
+# revw 315
+# ---------------    DictWriter    ---------------
 # writer
 from csv import writer, DictWriter
 # Version using writer
