@@ -53,11 +53,40 @@ with open('screaming_fighters.csv', "w") as file:
 
 
 
-# revw 315
+
 # ---------------    DictWriter    ---------------
-# writer
+# Not necessarily faster than the normal writer
+	# More detailed/explicit code to easily understand
+
+# DictWriter:
+	# creates a writer object for writing using dictionaries 
+	# fieldnames - 'kwarg' for the DictWriter specifying 'headers'
+		# 'headers' is a "LIST" or "TUPLE"
+	# writeheader - method on a writer to write 'header row '
+	# writerow - method on a writer to write a 'row' based on a dictionary
+
+
+
+# Example 3: Demo of using DictWriter
+from csv import DictWriter 
+
+with open("example.csv", "w") as file:
+	heaDers = ["Character", "Move"]
+	csv_writer = DictWriter(file, fieldnames=heaDers) 
+	csv_writer.writeheader() 
+	csv_writer.writerow(
+		{
+			"Character": "Ryu",
+			"Move":	"Hadouken"
+		}
+	)
+
+
+
+
+# Example 4: write cats.csv using DictWriter
 from csv import writer, DictWriter
-# Version using writer
+# ----    Version using "writer"    ----
 # with open("cats.csv", "w") as file:
 #     csv_writer = writer(file)
 #     csv_writer.writerow(["Name", "Age"])
@@ -69,62 +98,47 @@ with open("cats.csv", "w") as file:
 	headers = ["Name", "Breed", "Age"]
 	csv_writer = DictWriter(file, fieldnames=headers)
 	csv_writer.writeheader()
-	csv_writer.writerow({
-		"Name": "Garfield",
-		"Breed": "Orange Tabby",
-		"Age": 10
-	})
+	csv_writer.writerow(
+		{
+			"Name": "Garfield",
+			"Breed": "Orange Tabby",
+			"Age": 10
+		}
+	)
 
 
 
-# converter
+
+# Example 5: Inch to cm converter for fighters.csv
+	# instead of NESTED "with" we open the files seperately
 from csv import DictReader, DictWriter
 
+# converter function from "inch" to "cm"
 def cm_to_in(cm):
-	return float(cm) * 0.393701
+	return float(cm) * 0.393701		# notice the type-conversion
 
 with open("fighters.csv") as file:
 	csv_reader = DictReader(file)
-	fighters = list(csv_reader)
+	fighters = list(csv_reader)		# its a 'list of dictionaries'
+	# print(fighters)
 
 with open("inches_fighters.csv", "w") as file:
 	headers = ("Name","Country","Height")
 	csv_writer = DictWriter(file, fieldnames=headers)
 	csv_writer.writeheader()
-	for f in fighters:
-		csv_writer.writerow({
-			"Name": f["Name"],
-			"Country": f["Country"],
-			"Height": cm_to_in(f["Height (in cm)"])
-		})
-
-
-
-# writer
-from csv import writer, DictWriter
-# Version using writer
-# with open("cats.csv", "w") as file:
-#     csv_writer = writer(file)
-#     csv_writer.writerow(["Name", "Age"])
-#     csv_writer.writerow(["Blue", 3])
-#     csv_writer.writerow(["Kitty", 1])
-
-# Version using DictWriter
-with open("cats.csv", "w") as file:
-	headers = ["Name", "Breed", "Age"]
-	csv_writer = DictWriter(file, fieldnames=headers)
-	csv_writer.writeheader()
-	csv_writer.writerow({
-		"Name": "Garfield",
-		"Breed": "Orange Tabby",
-		"Age": 10
-	})
+	for fitr in fighters:
+		csv_writer.writerow(
+			{
+				"Name":fitr["Name"],
+				"Country": fitr["Country"],
+				"Height": cm_to_in(fitr["Height (in cm) "])		# notice the space
+			}
+		)
 
 
 
 
-
-Print Users CSV Solution
+# Example 6: Print Users CSV Solution
 import csv
 
 def print_users():
@@ -136,16 +150,15 @@ def print_users():
 
 
 
-
-Find User CSV Solution
+# Example 7: Find User CSV Solution
 import csv
 
 def find_user(first_name, last_name):
     with open("users.csv") as csvfile:
         csv_reader = csv.reader(csvfile)
         for (index, row) in enumerate(csv_reader):
-            first_name_match = first_name == row[0]
-            last_name_match = last_name == row[1]
+            first_name_match = (first_name == row[0])
+            last_name_match = (last_name == row[1])
             if first_name_match and last_name_match:
                 return index
         return "{} {} not found.".format(first_name, last_name)
