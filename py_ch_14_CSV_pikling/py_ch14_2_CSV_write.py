@@ -165,3 +165,42 @@ def find_user(first_name, last_name):
 
 
 
+
+# -----------    enumerate    -----------
+""" 
+enumerate() method adds a counter to an iterable and returns it in a form of enumerating object. 
+This enumerated object can then be used directly FOR-loops or converted into a 'list of tuples' using the list() function. 
+
+Syntax: 
+
+	enumerate(iterable, start=0)
+
+
+	Parameters:
+
+		Iterable: any object that supports iteration
+		Start: the index value from which the counter is to be started, by default it is 0
+
+"""
+
+
+# Python program to illustrate
+# enumerate function
+l1 = ["eat", "sleep", "repeat"]
+s1 = "geek"
+
+# creating enumerate objects
+obj1 = enumerate(l1)
+obj2 = enumerate(s1)
+
+print ("Return type:", type(obj1))
+print (list(enumerate(l1)))
+
+# changing start index to 2 from 0
+print (list(enumerate(s1, 2)))
+
+
+# Return type: <class 'enumerate'>
+# [(0, 'eat'), (1, 'sleep'), (2, 'repeat')]
+# [(2, 'g'), (3, 'e'), (4, 'e'), (5, 'k')]
+
