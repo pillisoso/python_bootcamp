@@ -112,7 +112,7 @@ print(jd)   # {"name": "Charles", "breed": "Tabby"}
 
 
 
-# ----------    jsonpicle    ----------
+# ----------    jsonpickle    ----------
 #  its not a official python module
     # we need to install it using 'pip install' from pypi
     # its more like 'pickle'  but it serialize/desrialize as json
