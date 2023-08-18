@@ -124,7 +124,7 @@ print(jd)   # {"name": "Charles", "breed": "Tabby"}
 
 
 
-# Example 4: worind with "jsonpickle"
+# Example 4: working with "jsonpickle"
 
 import jsonpickle
 
