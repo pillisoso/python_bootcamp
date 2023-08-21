@@ -44,3 +44,26 @@
 
 
 
+# ========    Is it...ok?    ========
+    # Some websites don't want people scraping them 
+
+    # robots.txt: Best practice: consult the robots.txt file 
+        # it lists which are allowed to scrape or not
+        # for example "imdb.com" uses robot.txt: "https://imdb.com/robot.txt"
+
+    # TIME OUT: If making many requests, time them out 
+        # you have to be POLITE
+        # sending too many requests in short period of time is not a good idea
+        # server possibly notice that you're scrapping
+
+    # BLOCK the IP: If you're too aggressive, your IP can be blocked
+        # some server may block your IP-addres if it detect any scrapping
+
+
+
+
+# ----------    Basic knowledge of HTML and CSS    ----------
+# You need to femilier withs html <tags>, id;s and CSS classes
+# we use those CSS class/id's/tags to scrap data
+
+
