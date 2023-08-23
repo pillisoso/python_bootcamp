@@ -54,7 +54,8 @@
 
 
 
-# MOCKED HTML: for now we assume that this data is comming from a "request"
+# Example 1 : Navigating using find() and find_all(). We use a MOCKED HTML
+    # MOCKED HTML: for now we assume that this data is comming from a "request"
 
 # from bs4 import BeautifulSoup
 # import bs4
