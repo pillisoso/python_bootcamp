@@ -16,3 +16,120 @@
     # It sits atop an HTML or XML parser, 
     # roviding Pythonic idioms for iterating, searching, and modifying the parse tree.
 
+
+
+# --------------    Getting started with Beautiful Soup    --------------
+# To extract data from HTML, we'll use Beautiful Soup
+# Install it with pip
+# Beautiful Soup lets us navigate through HTML with Python
+# Beautiful Soup does NOT download HTML - for this, we need the 'requests' module!
+
+# generally space each request by 3 seconds
+    # grab the HTML, scrape it using "Beautiful Soup"
+
+
+
+
+# ---------------    Parsing and Navigating HTML    ---------------
+
+# Initialize 'Beautiful Soup' after we import it using
+    # BeautifulSoup(html_string, "html.parser")
+        # we have to specify "html.parser" because Beautiful Soup also works with XML
+    # since, the html is sent us as a giant string
+        # it checks all braces, conditions for a correct HTML code, then creates a 'parsed HTML'
+        # we save this 'parsed HTML' to a variable and then navigate through it
+
+
+# Navigation through HTML
+    # HTML Once parsed, There are several ways to navigate:
+        # By Tag Name
+        # Using 'find()' - returns one matching tag
+        # Using 'find_all' - returns a 'list' of matching tags
+
+
+
+# ---------------    Navigating with CSS Selectors    ---------------
+# select - returns a list of elements matching a CSS selector
+
+
+
+
+# MOCKED HTML: for now we assume that this data is comming from a "request"
+
+# from bs4 import BeautifulSoup
+# import bs4
+
+html_str = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First HTML Page</title>
+</head>
+<body>
+    <div id="first">
+        <h3 data-example="yes">hi</h3>
+        <p>more text.</p>
+    </div>
+    <ol>
+        <li class="special">This list item is special.</li>
+        <li class="special">This list item is also special.</li> 
+        <li>This list item is not special.</li>
+    </ol>
+    <div data-example="yes">bye</div>
+</body>
+</html>
+"""
+
+# =======    importing & parsing    =======
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(html_str, 'html.parser')
+
+print(soup)
+print(type(soup))   # <class 'bs4.BeautifulSoup'>, it's not a string anymore
+
+# print(soup.prettify())    # prints html
+
+
+
+# =======    navigating    =======
+
+# now we can navigate
+print(soup.body)
+print(soup.body.div)    # returns the first <div>
+
+
+# using find():
+print(soup.find("div")) # also returns the first <div>
+print(soup.find("li")) # returns the first <li>
+# these are not strings
+d = soup.find("div")
+print(type(d))    # <class 'bs4.element.Tag'>
+
+
+# using find_all():
+divs = soup.find_all("div")
+print(divs)     # returns list of <div>s
+
+lis = soup.find_all("li")
+print(lis)     # returns list of <li>s
+
+
+# selecting by attribute, id, class
+# ids
+print(soup.find(id = "first"))  # using "id"
+
+
+# class = "special" won't work
+# To find classes, use "class_" with 'find_all()'
+print(soup.find_all(class_ = "special"))  # using "class"
+
+
+# attribute: to find the attribute - 'key="value"'
+    # we use 'attrs' with 'find_all()' using dictionary format {"key":"value"}
+print(soup.find_all(attrs = {"data-example" : "yes"}))  # using "attribute"
+
+dt = soup.find_all(attrs = {"data-example" : "yes"})
+print(dt)
+
