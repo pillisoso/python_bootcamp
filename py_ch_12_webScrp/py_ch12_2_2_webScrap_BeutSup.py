@@ -134,3 +134,58 @@ print(soup.find_all(attrs = {"data-example" : "yes"}))  # using "attribute"
 dt = soup.find_all(attrs = {"data-example" : "yes"})
 print(dt)
 
+
+
+
+# ---------------CSS style selector---------------
+# use 'select' #id for ids and ".class" for classes
+# e.g #foo abnd .bar
+
+# --------    select    --------
+
+# 'select' - returns a list of elements matching a CSS selector 
+# -----    Selector Cheatsheet    -------
+    # Select by id of foo: #foo
+    # Select by class of bar: .bar
+    # Select children: div > p
+    # Select descendents (used a sapce in between): div p
+from bs4 import BeautifulSoup
+soup2 = BeautifulSoup(html_str, 'html.parser')
+
+dt_2 = soup2.select("#first")
+print(dt_2) # notice a list is returned
+
+# we need to extract the element from that list
+print(dt_2[0])
+
+# class
+dt_3 = soup2.select(".special")
+print(dt_3) # notice a list is returned
+
+# tags
+dt_4 = soup2.select("div")
+print(dt_4) # notice a list is returned
+
+# attributes, need to enclose inside square braces
+dt_5 = soup2.select("[data-example]")
+print(dt_5) # notice a list is returned
+
+
+#  following is a comparison between HTML and CSS selectors
+
+# find an element with an id of 'foo' 
+soup.find(id="foo")
+soup.select("#foo")[0]
+
+# find all elements with a class of 'bar'
+# carefull "class" is a reserved word in Python 
+soup.find_all(class_="bar")
+soup.select(".bar")
+
+# find all elements with a data
+# attribute of "baz"
+# using the general attrs kwarg
+soup.find_all(attrs={"data-baz": True})     # notice attribut is inside {}
+soup.select("[data-baz]")
+
+
