@@ -137,7 +137,7 @@ print(dt)
 
 
 
-# ---------------CSS style selector---------------
+# ---------------    CSS style selector    ---------------
 # use 'select' #id for ids and ".class" for classes
 # e.g #foo abnd .bar
 
