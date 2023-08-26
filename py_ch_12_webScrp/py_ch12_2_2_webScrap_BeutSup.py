@@ -6,7 +6,7 @@
 # INSTALLING Beautiful soup
 # pip install bs4
 # This is a dummy package managed by the developer of Beautiful Soup to prevent name squatting. 
-    # The official name of PyPI’s Beautiful Soup Python package is "beautifulsoup4". 
+    # The official name of PyPI's Beautiful Soup Python package is "beautifulsoup4". 
     # This package ensures that if you type 'pip install bs4' by mistake you will end up with Beautiful Soup.
 
 # Instead use:
@@ -289,5 +289,84 @@ print(dv_attr)     # {'id': 'first'}
 
 # -----------    navigate relatively    -----------
 # navigating between elements : "realative" to each other
+# find a parrent of an "li" or 'parent of pararent', or next sibling or decendent etc
+
+# so we'll be navigating around a selected object
+
+# ------    via tags    ------
+    # parent / parents 
+    # contents
+    # next_sibling / next_siblings
+
+# ------    Via Searching    ------
+    # find_parent / find_parents
+    # find_next_sibling / find_next_siblings
+    # find_previous_sibling / find_previous_siblings
+
+
+html_str = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First HTML Page</title>
+</head>
+<body>
+    <div id="first">
+        <h3 data-example="yes">hi</h3>
+        <p>more text.</p>
+    </div>
+    <ol>
+        <li class="special">This list item is special.</li>
+        <li class="special">This list item is also special.</li> 
+        <li class = "super-special">This list item is not special.</li>
+    </ol>
+    <div data-example="yes">bye</div>
+</body>
+</html>
+"""
+
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(html_str, 'html.parser')
+
+
+# ------------------    via tags    ------------------
+
+data = soup.body.contents   # returns a list
+print(data)     # notice "newline character" "\n"
+# the new lines appears after the end of each tags/HTML-elements
+
+# so we need to use index to navigate between tags
+data = soup.body.contents[0]   # using index to get tags
+print(data) # prints a newline
+
+
+data = soup.body.contents[1]  
+print(data) 
+
+data = soup.body.contents[1].contents   # accessing contents of selected tag
+print(data)
+
+
+# NEXT SIBLING
+# accessing <ol> (the next sibling to currently selected div)
+# data = soup.body.contents[1].next_sibling   # actually give new-line, instead use following
+data = soup.body.contents[1].next_sibling.next_sibling
+print(data)
+
+
+# PARANTS
+data = soup.find(class_="super-special").parent    
+# we selected a <li>, then we get it paranet, which is <ol>
+print(data)
+
+data = soup.find(class_="super-special").parent.parent  # returns the whole <body>
+print(data)
+
+
+
+
+# ------------------    via searching    ------------------
 
 
