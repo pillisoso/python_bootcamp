@@ -369,4 +369,67 @@ print(data)
 
 # ------------------    via searching    ------------------
 
+    # find_parent / find_parents
+    # find_next_sibling / find_next_siblings
+    # find_previous_sibling / find_previous_siblings
+
+
+html_str = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First HTML Page</title>
+</head>
+<body>
+    <div id="first">
+        <h3 data-example="yes">hi</h3>
+        <p>more text.</p>
+    </div>
+    <ol>
+        <li class="special midpart">This list item is special.</li>
+        <li class="special">This list item is also special.</li> 
+        <li class = "super-special">This list item is not special.</li>
+    </ol>
+    <div data-example="yes">bye</div>
+</body>
+</html>
+"""
+
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(html_str, 'html.parser')
+# via search
+data = soup.find(id="first").find_next_sibling()    
+# It returns the <ol> tag, not the "new line"
+    # NOTE: in previous section "next_sibling" (find by tags), returned new line,
+    # Also notice: unlike "next_sibling", 'find_next_sibling()'  is a method 
+
+# via tag
+data = soup.find(id="first").next_sibling # returns "new line"
+
+# we can also chain it
+data = soup.find(id="first").find_next_sibling().find_next_sibling()    # <div data-example="yes">bye</div>
+
+
+
+# find previous sibling
+data = soup.select('[data-example]')[1].find_previous_sibling()   
+
+# we can pass strings as an argument
+data = soup.find(class_="midpart").find_next_sibling()    # by default it finds <li class="special">
+# we can specify the class or tag name of the next sibling as below
+data = soup.find(class_="midpart").find_next_sibling(class_ = "super-special")    # Now it finds <li class="super-special">
+
+
+# find parent
+data = soup.find(class_="midpart").find_parent()    # returns the <li>'s paraent, i.e. <ol>
+# but we can specify any parent as an argument
+data = soup.find(class_="midpart").find_parent("body")    # returns the whole body, which is also <li>'s paraen
+
+
+# find more info using DOCUMENTATION, use help() on any item. for example  
+help(data)
+
+
 
