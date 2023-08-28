@@ -367,8 +367,8 @@ print(data)
 
 
 
-# ------------------    via searching    ------------------
 
+# ------------------    via searching    ------------------
     # find_parent / find_parents
     # find_next_sibling / find_next_siblings
     # find_previous_sibling / find_previous_siblings
@@ -430,6 +430,4 @@ data = soup.find(class_="midpart").find_parent("body")    # returns the whole bo
 
 # find more info using DOCUMENTATION, use help() on any item. for example  
 help(data)
-
-
 
