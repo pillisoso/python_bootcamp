@@ -1,5 +1,5 @@
 
-# Courses: colt_py_bootcamps    332
+# Courses: colt_py_bootcamps    332, 334
 
 # ----------------    Beautiful Soup: Web Scraping Project    ----------------
 
@@ -45,5 +45,45 @@
 
 
 # Go to the web page, notice the 'next' button, we'll be using it to get to the last page
+
+
+
+# ------------------    Part 1 : SCRAPE    ------------------
+# http://quotes.toscrape.com
+# pip install requests
+import requests
+from bs4 import BeautifulSoup
+
+rq = requests.get("http://quotes.toscrape.com")
+
+soup = BeautifulSoup(rq.text)
+
+
+# work with MOCKED HTML
+from bs4 import BeautifulSoup
+import data_str
+html_str = data_str.mocked_html
+soup = BeautifulSoup(html_str, 'html.parser')
+# ---------------------
+
+quotes = soup.find_all(class_="quote")
+# print(quotes)
+# print(quotes[0])
+
+all_quotes = []
+for quote in quotes:
+    all_quotes.append(
+        {
+            "text": quote.find(class_="text").get_text(),
+            "author": quote.find(class_="author").get_text()
+        }
+    )
+
+print(all_quotes)
+
+
+# Grabbing URL
+# 5:20
+
 
 
