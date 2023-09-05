@@ -173,6 +173,10 @@ while page_url:
 print(all_quotes)
 
 # NOTE: It's a good idea to save the data into a file
+
+
+# ----------------    save using JSONPICKLE    ----------------
+
 import jsonpickle
 
 frozen = jsonpickle.encode(all_quotes)
@@ -188,6 +192,38 @@ with open("all_quotes.json", "w") as file:
 # 	contents = file.read()
 # 	unfrozen = jsonpickle.decode(contents)  # re-creates a python object
 # 	print(unfrozen)     # <__main__.Cat object at 0x000001DDCB6B3E90>
+
+
+
+# ----------------    save using CSV: DictWriter & DictReader    ----------------
+
+# To write scrapped data using "CSV"
+from csv import DictWriter
+
+def write_quote(qts):
+    with open("quotes.csv", "w", encoding="utf-8") as file: 
+        headers = ["text", "author", "bio-link"] 
+        csv_writer = DictWriter(file, fieldnames = headers) 
+        csv_writer.writeheader()
+        for quote in qts:
+            csv_writer.writerow(quote)
+
+# write_quote(qts=all_quotes)
+
+
+
+# reading from CSV
+from csv import DictReader
+
+def read_quote(filename):
+    with open(filename, "r", encoding="utf-8") as file: 
+        csv_reader = DictReader(file) 
+        for quote in csv_reader:
+            print(quote)
+        return list(csv_reader)
+    
+qts_csv_lst = read_quote("quotes.csv")
+
 
 
 
